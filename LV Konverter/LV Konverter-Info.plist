@@ -14,13 +14,25 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
+			<string>CSV</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>????</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>LGDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>d83</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>D83</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
 			<key>NSDocumentClass</key>
 			<string>LGDocument</string>
 		</dict>

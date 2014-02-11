@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class LGServiceDirectory;
+
 @interface LGDocument : NSDocument
+{
+    LGServiceDirectory *serviceDirectory;
+}
 
 @end

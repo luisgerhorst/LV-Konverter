@@ -19,6 +19,17 @@
 		59FE5E7318AA6A3D00DF81BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FE5E4F18AA6A3D00DF81BE /* Cocoa.framework */; };
 		59FE5E7B18AA6A3D00DF81BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 59FE5E7918AA6A3D00DF81BE /* InfoPlist.strings */; };
 		59FE5E7D18AA6A3D00DF81BE /* LV_KonverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E7C18AA6A3D00DF81BE /* LV_KonverterTests.m */; };
+		59FE5E9C18AA6AC000DF81BE /* LGMutableOrdinalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */; };
+		59FE5E9D18AA6AC000DF81BE /* LGNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E8918AA6AC000DF81BE /* LGNode.m */; };
+		59FE5E9E18AA6AC000DF81BE /* LGOrdinalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */; };
+		59FE5E9F18AA6AC000DF81BE /* LGOrdinalNumberScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */; };
+		59FE5EA018AA6AC000DF81BE /* LGService.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E8F18AA6AC000DF81BE /* LGService.m */; };
+		59FE5EA118AA6AC000DF81BE /* LGServiceDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9118AA6AC000DF81BE /* LGServiceDirectory.m */; };
+		59FE5EA218AA6AC000DF81BE /* LGServiceGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9318AA6AC000DF81BE /* LGServiceGroup.m */; };
+		59FE5EA318AA6AC000DF81BE /* LGServiceType.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9518AA6AC000DF81BE /* LGServiceType.m */; };
+		59FE5EA418AA6AC000DF81BE /* LGSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9718AA6AC000DF81BE /* LGSet.m */; };
+		59FE5EA518AA6AC000DF81BE /* LGStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9918AA6AC000DF81BE /* LGStack.m */; };
+		59FE5EA618AA6AC000DF81BE /* NSArray+LGCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E9B18AA6AC000DF81BE /* NSArray+LGCSVParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +63,28 @@
 		59FE5E7818AA6A3D00DF81BE /* LV KonverterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LV KonverterTests-Info.plist"; sourceTree = "<group>"; };
 		59FE5E7A18AA6A3D00DF81BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		59FE5E7C18AA6A3D00DF81BE /* LV_KonverterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LV_KonverterTests.m; sourceTree = "<group>"; };
+		59FE5E8618AA6AC000DF81BE /* LGMutableOrdinalNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGMutableOrdinalNumber.h; sourceTree = "<group>"; };
+		59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGMutableOrdinalNumber.m; sourceTree = "<group>"; };
+		59FE5E8818AA6AC000DF81BE /* LGNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGNode.h; sourceTree = "<group>"; };
+		59FE5E8918AA6AC000DF81BE /* LGNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGNode.m; sourceTree = "<group>"; };
+		59FE5E8A18AA6AC000DF81BE /* LGOrdinalNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOrdinalNumber.h; sourceTree = "<group>"; };
+		59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOrdinalNumber.m; sourceTree = "<group>"; };
+		59FE5E8C18AA6AC000DF81BE /* LGOrdinalNumberScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOrdinalNumberScheme.h; sourceTree = "<group>"; };
+		59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOrdinalNumberScheme.m; sourceTree = "<group>"; };
+		59FE5E8E18AA6AC000DF81BE /* LGService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGService.h; sourceTree = "<group>"; };
+		59FE5E8F18AA6AC000DF81BE /* LGService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGService.m; sourceTree = "<group>"; };
+		59FE5E9018AA6AC000DF81BE /* LGServiceDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGServiceDirectory.h; sourceTree = "<group>"; };
+		59FE5E9118AA6AC000DF81BE /* LGServiceDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGServiceDirectory.m; sourceTree = "<group>"; };
+		59FE5E9218AA6AC000DF81BE /* LGServiceGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGServiceGroup.h; sourceTree = "<group>"; };
+		59FE5E9318AA6AC000DF81BE /* LGServiceGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGServiceGroup.m; sourceTree = "<group>"; };
+		59FE5E9418AA6AC000DF81BE /* LGServiceType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGServiceType.h; sourceTree = "<group>"; };
+		59FE5E9518AA6AC000DF81BE /* LGServiceType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGServiceType.m; sourceTree = "<group>"; };
+		59FE5E9618AA6AC000DF81BE /* LGSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSet.h; sourceTree = "<group>"; };
+		59FE5E9718AA6AC000DF81BE /* LGSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSet.m; sourceTree = "<group>"; };
+		59FE5E9818AA6AC000DF81BE /* LGStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGStack.h; sourceTree = "<group>"; };
+		59FE5E9918AA6AC000DF81BE /* LGStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGStack.m; sourceTree = "<group>"; };
+		59FE5E9A18AA6AC000DF81BE /* NSArray+LGCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LGCSVParser.h"; sourceTree = "<group>"; };
+		59FE5E9B18AA6AC000DF81BE /* NSArray+LGCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LGCSVParser.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +152,7 @@
 			children = (
 				59FE5E6118AA6A3D00DF81BE /* LGDocument.h */,
 				59FE5E6218AA6A3D00DF81BE /* LGDocument.m */,
+				59FE5EA718AA6AC700DF81BE /* csvToD83 */,
 				59FE5E6418AA6A3D00DF81BE /* LGDocument.xib */,
 				59FE5E6718AA6A3D00DF81BE /* MainMenu.xib */,
 				59FE5E6A18AA6A3D00DF81BE /* Images.xcassets */,
@@ -155,6 +189,35 @@
 				59FE5E7918AA6A3D00DF81BE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		59FE5EA718AA6AC700DF81BE /* csvToD83 */ = {
+			isa = PBXGroup;
+			children = (
+				59FE5E8618AA6AC000DF81BE /* LGMutableOrdinalNumber.h */,
+				59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */,
+				59FE5E8818AA6AC000DF81BE /* LGNode.h */,
+				59FE5E8918AA6AC000DF81BE /* LGNode.m */,
+				59FE5E8A18AA6AC000DF81BE /* LGOrdinalNumber.h */,
+				59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */,
+				59FE5E8C18AA6AC000DF81BE /* LGOrdinalNumberScheme.h */,
+				59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */,
+				59FE5E8E18AA6AC000DF81BE /* LGService.h */,
+				59FE5E8F18AA6AC000DF81BE /* LGService.m */,
+				59FE5E9018AA6AC000DF81BE /* LGServiceDirectory.h */,
+				59FE5E9118AA6AC000DF81BE /* LGServiceDirectory.m */,
+				59FE5E9218AA6AC000DF81BE /* LGServiceGroup.h */,
+				59FE5E9318AA6AC000DF81BE /* LGServiceGroup.m */,
+				59FE5E9418AA6AC000DF81BE /* LGServiceType.h */,
+				59FE5E9518AA6AC000DF81BE /* LGServiceType.m */,
+				59FE5E9618AA6AC000DF81BE /* LGSet.h */,
+				59FE5E9718AA6AC000DF81BE /* LGSet.m */,
+				59FE5E9818AA6AC000DF81BE /* LGStack.h */,
+				59FE5E9918AA6AC000DF81BE /* LGStack.m */,
+				59FE5E9A18AA6AC000DF81BE /* NSArray+LGCSVParser.h */,
+				59FE5E9B18AA6AC000DF81BE /* NSArray+LGCSVParser.m */,
+			);
+			name = csvToD83;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +320,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59FE5EA418AA6AC000DF81BE /* LGSet.m in Sources */,
+				59FE5EA518AA6AC000DF81BE /* LGStack.m in Sources */,
+				59FE5EA618AA6AC000DF81BE /* NSArray+LGCSVParser.m in Sources */,
+				59FE5EA118AA6AC000DF81BE /* LGServiceDirectory.m in Sources */,
+				59FE5E9E18AA6AC000DF81BE /* LGOrdinalNumber.m in Sources */,
+				59FE5EA018AA6AC000DF81BE /* LGService.m in Sources */,
+				59FE5E9D18AA6AC000DF81BE /* LGNode.m in Sources */,
 				59FE5E5C18AA6A3D00DF81BE /* main.m in Sources */,
+				59FE5EA218AA6AC000DF81BE /* LGServiceGroup.m in Sources */,
 				59FE5E6318AA6A3D00DF81BE /* LGDocument.m in Sources */,
+				59FE5E9F18AA6AC000DF81BE /* LGOrdinalNumberScheme.m in Sources */,
+				59FE5EA318AA6AC000DF81BE /* LGServiceType.m in Sources */,
+				59FE5E9C18AA6AC000DF81BE /* LGMutableOrdinalNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
