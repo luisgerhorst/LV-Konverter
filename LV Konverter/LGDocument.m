@@ -15,7 +15,7 @@
 {
     self = [super init];
     if (self) {
-        // Add your subclass-specific initialization here.
+        
     }
     return self;
 }
@@ -42,14 +42,19 @@
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAllowedFileTypes:@[@"D83"]];
-    [savePanel setNameFieldStringValue:[[[[self fileURL] URLByDeletingPathExtension]URLByAppendingPathExtension:@"d83"] lastPathComponent]];
+    [savePanel setExtensionHidden:NO];
+    [savePanel setNameFieldStringValue:[[[[self fileURL] URLByDeletingPathExtension] URLByAppendingPathExtension:@"d83"] lastPathComponent]];
     [savePanel setDirectoryURL:[[self fileURL] URLByDeletingLastPathComponent]];
     [savePanel beginWithCompletionHandler:^(NSInteger result) {
         NSURL *url = [savePanel URL];
         NSLog(@"Panel ended with result %ld and URL %@", (long)result, url);
         if (result == NSFileHandlingPanelOKButton) {
             NSLog(@"Saving to url.");
-            [[serviceDirectory d83String] writeToURL:url atomically:YES encoding:NSASCIIStringEncoding error:nil];
+            @try {
+                [[serviceDirectory d83String] writeToURL:url atomically:YES encoding:NSASCIIStringEncoding error:nil];
+            } @catch (NSException *exception) {
+                NSLog(@"Error saving as D83: %@", exception);
+            }
         }
         [savePanel orderOut:nil];
         [self close];
