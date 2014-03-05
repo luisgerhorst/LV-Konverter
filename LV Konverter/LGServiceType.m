@@ -27,19 +27,31 @@
  */
 
 #import "LGServiceType.h"
+#import "LGServiceDirectory.h"
+
+
+// Summarize in LGErrors, range 300 -> 399.
+
+NSInteger const LGInvalidServiceType = 300;
+NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
+
 
 @implementation LGServiceType
 
 - (id)init
 {
-    @throw [NSException exceptionWithName:@"LGServiceTypeInitialization" reason:@"Use initWithCSVString:forServiceWithUnit:, not init" userInfo:nil];
+    @throw [NSException exceptionWithName:@"LGServiceTypeInitialization"
+                                   reason:@"Use initWithCSVString:forServiceWithUnit:, not init"
+                                 userInfo:nil];
 }
 
 /*
  * kind2String: unmodified string read from a CSV file where it would in the colummn "Art"
  * unit: the unit from the CSV file (indicates if service is measured in hours)
  */
-- (id)initWithCSVString:(NSString *)kind2String forServiceWithUnit:(NSString *)unit
+- (id)initWithCSVString:(NSString *)kind2String
+     forServiceWithUnit:(NSString *)unit
+                  error:(NSError **)error
 {
     self = [super init];
     if (self) {
@@ -58,7 +70,10 @@
         
         type = LGServiceType_TYPE_N;
         
-        if (![self valid]) @throw [NSException exceptionWithName:@"LGServiceTypeInitialization" reason:@"The resulting combination of POSART1, POSART2 and POSTYP is invalid" userInfo:nil];
+        if (![self valid]) {
+            *error = [NSError errorWithDomain:LGErrorDomain code:LGInvalidServiceType userInfo:nil]; // userInfo added in LGService initWithTitle:ofQuantity:inUnit:withCSVTypeString:errors:
+            return nil;
+        }
         
     }
     return self;

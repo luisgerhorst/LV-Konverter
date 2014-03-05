@@ -28,6 +28,13 @@
 
 #import "LGNode.h"
 
+
+// Error constants.
+
+extern NSInteger const LGServiceGroupTitleTooLong;
+extern NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey;
+
+
 typedef NS_ENUM(NSInteger, LGServiceGroup_TYPE) { // LVGRART
     LGServiceGroup_TYPE_N, // N - Normalgruppe
     LGServiceGroup_TYPE_G, // G
@@ -45,5 +52,7 @@ typedef NS_ENUM(NSInteger, LGServiceGroup_TYPE) { // LVGRART
 }
 
 - (id)initWithTitle:(NSString *)string;
+
+- (NSString *)title;
 
 @end

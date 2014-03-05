@@ -85,7 +85,7 @@ NSUInteger digitsCount(NSInteger i) {
     while ([string length] < 9) [string appendString:@"0"];
     
     // Validate
-    if ([string length] != 9) @throw [NSException exceptionWithName:@"d83Date74" reason:@"Resulting data element if too long" userInfo:nil];
+    if ([string length] != 9) @throw [NSException exceptionWithName:@"d83Date74" reason:@"Resulting data element if too long" userInfo:nil]; // Todo: Turn into problem: Too large, try removing service or sub-points.
     
     return string;
 }

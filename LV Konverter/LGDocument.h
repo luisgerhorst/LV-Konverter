@@ -9,10 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 @class LGServiceDirectory;
+@class LGErrors;
 
-@interface LGDocument : NSDocument
-{
-    LGServiceDirectory *serviceDirectory;
-}
+@interface LGDocument : NSDocument {}
+
+@property LGServiceDirectory *serviceDirectory;
+@property LGErrors *errors;
+
+- (IBAction)save:(id)sender;
 
 @end

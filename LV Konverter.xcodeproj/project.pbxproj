@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5916852718B2620C009981D8 /* LGErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5916852618B2620C009981D8 /* LGErrors.m */; };
+		59A37D4418C3761900129997 /* ErrorSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59A37D4318C3761900129997 /* ErrorSheet.xib */; };
 		59FE5E5018AA6A3D00DF81BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FE5E4F18AA6A3D00DF81BE /* Cocoa.framework */; };
 		59FE5E5A18AA6A3D00DF81BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 59FE5E5818AA6A3D00DF81BE /* InfoPlist.strings */; };
 		59FE5E5C18AA6A3D00DF81BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FE5E5B18AA6A3D00DF81BE /* main.m */; };
@@ -43,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5916852518B2620C009981D8 /* LGErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGErrors.h; sourceTree = "<group>"; };
+		5916852618B2620C009981D8 /* LGErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGErrors.m; sourceTree = "<group>"; };
+		59A37D4318C3761900129997 /* ErrorSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorSheet.xib; sourceTree = "<group>"; };
 		59FE5E4C18AA6A3D00DF81BE /* LV Konverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LV Konverter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FE5E4F18AA6A3D00DF81BE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		59FE5E5218AA6A3D00DF81BE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -108,6 +113,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5916851E18B25E94009981D8 /* OrdinalNumber */ = {
+			isa = PBXGroup;
+			children = (
+				59FE5E8C18AA6AC000DF81BE /* LGOrdinalNumberScheme.h */,
+				59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */,
+				59FE5E8A18AA6AC000DF81BE /* LGOrdinalNumber.h */,
+				59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */,
+				59FE5E8618AA6AC000DF81BE /* LGMutableOrdinalNumber.h */,
+				59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */,
+			);
+			name = OrdinalNumber;
+			sourceTree = "<group>";
+		};
+		5916851F18B25EAB009981D8 /* CSVParser */ = {
+			isa = PBXGroup;
+			children = (
+				59FE5E9A18AA6AC000DF81BE /* NSArray+LGCSVParser.h */,
+				59FE5E9B18AA6AC000DF81BE /* NSArray+LGCSVParser.m */,
+			);
+			name = CSVParser;
+			sourceTree = "<group>";
+		};
+		5916852018B25EBE009981D8 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5916852518B2620C009981D8 /* LGErrors.h */,
+				5916852618B2620C009981D8 /* LGErrors.m */,
+				59FE5E9618AA6AC000DF81BE /* LGSet.h */,
+				59FE5E9718AA6AC000DF81BE /* LGSet.m */,
+				59FE5E9818AA6AC000DF81BE /* LGStack.h */,
+				59FE5E9918AA6AC000DF81BE /* LGStack.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		59FE5E4318AA6A3D00DF81BE = {
 			isa = PBXGroup;
 			children = (
@@ -152,10 +192,11 @@
 			children = (
 				59FE5E6118AA6A3D00DF81BE /* LGDocument.h */,
 				59FE5E6218AA6A3D00DF81BE /* LGDocument.m */,
-				59FE5EA718AA6AC700DF81BE /* csvToD83 */,
 				59FE5E6418AA6A3D00DF81BE /* LGDocument.xib */,
+				59A37D4318C3761900129997 /* ErrorSheet.xib */,
 				59FE5E6718AA6A3D00DF81BE /* MainMenu.xib */,
 				59FE5E6A18AA6A3D00DF81BE /* Images.xcassets */,
+				59FE5EA718AA6AC700DF81BE /* Model */,
 				59FE5E5618AA6A3D00DF81BE /* Supporting Files */,
 			);
 			path = "LV Konverter";
@@ -191,33 +232,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		59FE5EA718AA6AC700DF81BE /* csvToD83 */ = {
+		59FE5EA718AA6AC700DF81BE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				59FE5E8618AA6AC000DF81BE /* LGMutableOrdinalNumber.h */,
-				59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */,
-				59FE5E8818AA6AC000DF81BE /* LGNode.h */,
-				59FE5E8918AA6AC000DF81BE /* LGNode.m */,
-				59FE5E8A18AA6AC000DF81BE /* LGOrdinalNumber.h */,
-				59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */,
-				59FE5E8C18AA6AC000DF81BE /* LGOrdinalNumberScheme.h */,
-				59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */,
-				59FE5E8E18AA6AC000DF81BE /* LGService.h */,
-				59FE5E8F18AA6AC000DF81BE /* LGService.m */,
 				59FE5E9018AA6AC000DF81BE /* LGServiceDirectory.h */,
 				59FE5E9118AA6AC000DF81BE /* LGServiceDirectory.m */,
 				59FE5E9218AA6AC000DF81BE /* LGServiceGroup.h */,
 				59FE5E9318AA6AC000DF81BE /* LGServiceGroup.m */,
+				59FE5E8E18AA6AC000DF81BE /* LGService.h */,
+				59FE5E8F18AA6AC000DF81BE /* LGService.m */,
 				59FE5E9418AA6AC000DF81BE /* LGServiceType.h */,
 				59FE5E9518AA6AC000DF81BE /* LGServiceType.m */,
-				59FE5E9618AA6AC000DF81BE /* LGSet.h */,
-				59FE5E9718AA6AC000DF81BE /* LGSet.m */,
-				59FE5E9818AA6AC000DF81BE /* LGStack.h */,
-				59FE5E9918AA6AC000DF81BE /* LGStack.m */,
-				59FE5E9A18AA6AC000DF81BE /* NSArray+LGCSVParser.h */,
-				59FE5E9B18AA6AC000DF81BE /* NSArray+LGCSVParser.m */,
+				59FE5E8818AA6AC000DF81BE /* LGNode.h */,
+				59FE5E8918AA6AC000DF81BE /* LGNode.m */,
+				5916852018B25EBE009981D8 /* Helper */,
+				5916851E18B25E94009981D8 /* OrdinalNumber */,
+				5916851F18B25EAB009981D8 /* CSVParser */,
 			);
-			name = csvToD83;
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +333,7 @@
 				59FE5E6B18AA6A3D00DF81BE /* Images.xcassets in Resources */,
 				59FE5E6018AA6A3D00DF81BE /* Credits.rtf in Resources */,
 				59FE5E6618AA6A3D00DF81BE /* LGDocument.xib in Resources */,
+				59A37D4418C3761900129997 /* ErrorSheet.xib in Resources */,
 				59FE5E6918AA6A3D00DF81BE /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5916852718B2620C009981D8 /* LGErrors.m in Sources */,
 				59FE5EA418AA6AC000DF81BE /* LGSet.m in Sources */,
 				59FE5EA518AA6AC000DF81BE /* LGStack.m in Sources */,
 				59FE5EA618AA6AC000DF81BE /* NSArray+LGCSVParser.m in Sources */,
@@ -551,6 +585,7 @@
 				59FE5E8218AA6A3D00DF81BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59FE5E8318AA6A3D00DF81BE /* Build configuration list for PBXNativeTarget "LV KonverterTests" */ = {
 			isa = XCConfigurationList;
@@ -559,6 +594,7 @@
 				59FE5E8518AA6A3D00DF81BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

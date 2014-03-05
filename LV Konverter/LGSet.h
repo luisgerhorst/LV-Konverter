@@ -36,7 +36,7 @@
 - (void)setString:(NSString *)string range:(NSRange)range;
 - (void)setInteger:(NSUInteger)number range:(NSRange)range;
 - (void)setFloat:(float)number range:(NSRange)range comma:(NSUInteger)comma;
-- (void)setCutString:(NSString *)s range:(NSRange)range;
+- (BOOL)setCutString:(NSString *)s range:(NSRange)range;
 
 - (NSString *)stringForSetNumber:(NSUInteger)aSetNumber;
 

@@ -56,7 +56,7 @@ unichar detectDelimiter(NSString const *csvString) {
     unichar delimiterWithMaxFieldCount = delimiters[0]; // Delimiters should be sorted by importance and how common/popular they are, this makes the first one the default.
     NSInteger maxFieldCount = 0; // Will be replaced if delimiter results in one field in each line.
     for (NSInteger i = delimitersCount-1; i >= 0; i--) { // Go from behind because more common/popular delimiters are at the beginning.
-        if (delimitersFieldCounts[i] > maxFieldCount) { // The delimiter with the higthest count always replaces other.
+        if (delimitersFieldCounts[i] > maxFieldCount) { // The delimiter with the higthest count always replaces others.
             maxFieldCount = delimitersFieldCounts[i];
             delimiterWithMaxFieldCount = delimiters[i];
         } else if (delimitersFieldCounts[i] == maxFieldCount) // Replace delimiters at the end of array with newer delimiters with same field count.
@@ -83,6 +83,10 @@ unichar detectDelimiter(NSString const *csvString) {
     NSRegularExpression * const quotesAtStartAndEndRegEx = [NSRegularExpression regularExpressionWithPattern:@"^\".+\"$" options:0 error:nil]; // Matches every string that starts and ends with double quotes and has something else in between.
     
     NSMutableArray *array = [NSMutableArray array];
+    
+    // Normalize newline char.
+    csvString = [csvString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
+    csvString = [csvString stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
     
     NSArray *lines = [csvString componentsSeparatedByString:@"\n"];
     for (NSString *line in lines) { // For each line ...

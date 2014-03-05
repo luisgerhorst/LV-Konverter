@@ -80,17 +80,20 @@
     [self setString:decimalString range:NSMakeRange(range.location + (range.length - comma), comma)];
 }
 
-- (void)setCutString:(NSString *)s range:(NSRange)range
+- (BOOL)setCutString:(NSString *)s range:(NSRange)range
 {
     NSString *cutString = s;
     if ([s length] > range.length) cutString = [s substringToIndex:range.length];
     [self setString:cutString range:range];
+
+    if ([s length] > range.length) return YES;
+    else return NO;
 }
 
 - (NSString *)stringForSetNumber:(NSUInteger)number
 {
     
-    if (number > 999999)  @throw [NSException exceptionWithName:@"LGSet_StringForSetNumber" reason:@"Set number can not have more then 6 digits" userInfo:nil];
+    if (number > 999999) @throw [NSException exceptionWithName:@"LGSet_StringForSetNumber" reason:@"Set number can not have more then 6 digits" userInfo:nil];
     
     // generate string starting with zeros and number at end
     NSString *setNumberString = [NSString stringWithFormat:@"%lu", (unsigned long)number];

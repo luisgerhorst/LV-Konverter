@@ -30,22 +30,51 @@
 #import "LGOrdinalNumber.h"
 #import "LGOrdinalNumberScheme.h"
 #import "LGSet.h"
+#import "LGErrors.h"
+#import "LGServiceDirectory.h"
+#import "LGServiceType.h"
+
+
+// Summarize in LGErrors, range 200 -> 299.
+
+NSInteger const LGServiceUnitTooLong = 200;
+NSString * const LGServiceUnitTooLong_OrdinalNumberKey = @"ordinalNumber";
+
+NSInteger const LGServiceTitleTooLong = 201;
+NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
+
 
 @implementation LGService
 
 - (id)init
 {
-    @throw [NSException exceptionWithName:@"LGServiceInitialization" reason:@"Use initWithTitle:ofQuantity:inUnit:withCSVTypeString:, not init" userInfo:nil];
+    @throw [NSException exceptionWithName:@"LGServiceInitialization"
+                                   reason:@"Use initWithTitle:ofQuantity:inUnit:withCSVTypeString:, not init."
+                                 userInfo:nil];
 }
 
-- (id)initWithTitle:(NSString *)aTitle ofQuantity:(float)aQuantity inUnit:(NSString *)aUnit withCSVTypeString:(NSString *)typeString
+- (id)initWithTitle:(NSString *)aTitle
+         ofQuantity:(float)aQuantity
+             inUnit:(NSString *)aUnit
+  withCSVTypeString:(NSString *)typeString
+             errors:(LGErrors *)errors
 {
     self = [super initWithoutChildren];
     if (self) {
         title = aTitle;
         quantity = aQuantity;
         unit = aUnit;
-        type = [[LGServiceType alloc] initWithCSVString:typeString forServiceWithUnit:aUnit];
+        
+        NSError *error;
+        type = [[LGServiceType alloc] initWithCSVString:typeString
+                                     forServiceWithUnit:aUnit
+                                                 error:&error];
+        if (!type && [error code] == LGInvalidServiceType) {
+            [errors addError:[NSError errorWithDomain:LGErrorDomain
+                                                 code:LGInvalidServiceType
+                                             userInfo:@{LGInvalidServiceType_ServiceTitleKey: title}]];
+        }
+        
         text = [NSMutableString string];
     }
     return self;
@@ -94,13 +123,18 @@
 
 // D83
 
-- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
+                             ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+                               errors:(LGErrors *)errors
 {
     NSMutableArray *sets = [NSMutableArray array];
-    [sets addObject:[self d83Set21WithOrdinalNumber:ordinalNumber ofScheme:ordinalNumberScheme]];
-    [sets addObject:[self d83Set25]];
+    [sets addObject:[self d83Set21WithOrdinalNumber:ordinalNumber
+                                           ofScheme:ordinalNumberScheme
+                                             errors:errors]];
+    [sets addObject:[self d83Set25AndErrors:errors
+                              ordinalNumber:ordinalNumber]];
     
-    // Split text by lines, spaces and long words by length.
+    // Split text by lines, spaces and long words by length and save them into an array.
     NSUInteger maxLength = 55; // max length of one line
     NSRegularExpression *wordLengthRegExp = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@".{1,%lu}", (unsigned long)maxLength] options:0 error:nil]; // 55 chars
     NSArray *inputLines = [text componentsSeparatedByString:@"\n"];
@@ -131,32 +165,39 @@
     // Add chunks to sets.
     for (NSString *chunk in lines) [sets addObject:[self d83Set26WithChunk:chunk]];
     
-    /*
-     creates one empty 26 set even if text is empty
-     each service needs at least one 26 set
-     */
+    // Creates one empty 26 set even if text is empty.
+    // Each service needs at least one 26 set.
     
     return sets;
 }
 
 // Sets
 
-- (LGSet *)d83Set21WithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+- (LGSet *)d83Set21WithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
+                            ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+                              errors:(LGErrors *)errors
 {
     LGSet *set = [[LGSet alloc] init];
     [set setType:21];
     [set setString:[ordinalNumberScheme d83Data73OfOrdinalNumber:ordinalNumber] range:NSMakeRange(2, 9)]; // OZ
     [set setString:[type d83Data787980] range:NSMakeRange(11,3)]; // POSART1 + POSART2 + POSTYP
     [set setFloat:quantity range:NSMakeRange(23,11) comma:3]; // MENGE
-    [set setString:unit range:NSMakeRange(34,4)]; // EINHEIT
+    // EINHEIT:
+    if ([set setCutString:unit range:NSMakeRange(34,4)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+                                                                                               code:LGServiceUnitTooLong
+                                                                                           userInfo:@{LGServiceUnitTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
 }
 
-- (LGSet *)d83Set25
+- (LGSet *)d83Set25AndErrors:(LGErrors *)errors
+               ordinalNumber:(LGOrdinalNumber *)ordinalNumber
 {
     LGSet *set = [[LGSet alloc] init];
     [set setType:25];
-    [set setCutString:title range:NSMakeRange(2, 70)]; // KURZTEXT
+    // KURZTEXT:
+    if ([set setCutString:title range:NSMakeRange(2, 70)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+                                                                                                 code:LGServiceTitleTooLong
+                                                                                             userInfo:@{LGServiceTitleTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
 }
 
@@ -166,6 +207,11 @@
     [set setType:26];
     [set setString:chunk range:NSMakeRange(5, 55)]; // LANGTEXT
     return set;
+}
+
+- (NSString *)title
+{
+    return title;
 }
 
 @end

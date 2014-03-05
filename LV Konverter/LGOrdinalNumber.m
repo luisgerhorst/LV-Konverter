@@ -35,12 +35,12 @@
 {
     self = [super init];
     if (self) {
-        ordinalNumber = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:0]];
+        ordinalNumber = [NSArray arrayWithObject:@(0)];
     }
     return self;
 }
 
-- (id)initWithCSVString:(NSString *)string type:(LGOrdinalNumber_Type *)type
+- (id)initWithCSVString:(NSString *)string
 {
     self = [super init];
     if (self) {
@@ -49,21 +49,17 @@
         NSArray *strings = [string componentsSeparatedByString:@"."];
         NSMutableArray *numbers = [NSMutableArray array];
         for (NSString *s in strings) {
-            [numbers addObject:[NSNumber numberWithInteger:(NSUInteger)[s integerValue]]]; // get unsigned int from string and put into array
+            [numbers addObject:@((NSUInteger)[s integerValue])]; // get unsigned int from string and put into array
         }
         
-        // Set:
-        *type = LGOrdinalNumber_Type_Service;
-        if ([[numbers objectAtIndex:[numbers count]-1] integerValue] == 0) {
-            [numbers removeLastObject];
-            *type = LGOrdinalNumber_Type_Group;
-        }
+        // Fix:
+        if ([[numbers objectAtIndex:[numbers count]-1] integerValue] == 0) [numbers removeLastObject]; // Remove 0 at end caused by dot at the end of the string.
         ordinalNumber = numbers;
         
         // Validate:
         if ([ordinalNumber count] == 0) return nil;
-        for (NSUInteger i = 0; i < [ordinalNumber count]; i++) {
-            if ([[ordinalNumber objectAtIndex:i] integerValue] > 0) continue;
+        for (NSUInteger i = 0; i < [ordinalNumber count]; i++) { // Each number ...
+            if ([[ordinalNumber objectAtIndex:i] integerValue] > 0) continue; // ... must be larger then 0.
             return nil;
         }
         
@@ -93,6 +89,22 @@
 - (NSArray *)arrayValue
 {
     return [NSArray arrayWithArray:ordinalNumber];
+}
+
+- (NSString *)stringValue
+{
+    NSMutableString *string = [NSMutableString string];
+    for (NSNumber *number in ordinalNumber) {
+        [string appendString:[number stringValue]];
+        [string appendString:@"."];
+    }
+    [string replaceCharactersInRange:NSMakeRange([string length]-1, 1) withString:@""];
+    return string;
+}
+
+- (NSString *)description
+{
+    return [self stringValue];
 }
 
 @end

@@ -29,28 +29,47 @@
 #import <Foundation/Foundation.h>
 #import "LGNode.h"
 
-@interface LGServiceDirectory : LGNode // Leistungsverzeichnis
-{
-    
-    // 01 Informationen Leistungsverzeichnis
-    NSString *description; // LVBEZ - Bezeichnung des Leistungsverzeichnisses
-    NSDate *date; // LVDATUM - Datum des Leistungsverzeichnisses
-    
-    // 02 Informationen Projekt
-    NSString *project; // PROBEZ - Bezeichnung des Projekts
-    
-    // 03 Informationen Auftraggeber
-    NSString *client; // AGBEZ - Bezeichnung des Auftraggebers
-    
-}
+@class LGErrors;
 
-+ (LGServiceDirectory *)serviceDirectoryWithCSVString:(NSString *)csvString;
 
-- (void)setProject:(NSString *)aProjectTitle;
-- (void)setDescription:(NSString *)aServiceDirectoryDescription;
-- (void)setClient:(NSString *)aClientName;
-- (void)setDate:(NSDate *)aDate;
+// Error constants.
 
-- (NSString *)d83String;
+extern NSString * const LGErrorDomain;
+
+extern NSInteger const LGInvalidFieldCount;
+extern NSInteger const LGInvalidStructureUnregularDepth;
+extern NSInteger const LGInvalidStructureGroupUnderService;
+extern NSInteger const LGInvalidStructureServiceUnderService;
+extern NSInteger const LGInvalidStructureGroupInServiceLayer;
+extern NSInteger const LGInvalidStructureServiceInGroupLayer;
+extern NSInteger const LGServiceDirectoryStringTooLong;
+
+extern NSInteger const LGUnrecognizeableLine;
+extern NSString * const LGUnrecognizeableLine_LineIndexKey;
+
+extern NSInteger const LGUnrecognizeableLineWithOrdinalNumber;
+extern NSString * const LGUnrecognizeableLineWithOrdinalNumber_LineIndexKey;
+extern NSString * const LGUnrecognizeableLineWithOrdinalNumber_OrdinalNumberKey;
+
+extern NSInteger const LGDeadFieldsWithTextInServiceTextChunkLine;
+extern NSString * const LGDeadFieldsWithTextInServiceTextChunkLine_LineIndexKey;
+
+
+// Class interface.
+
+@interface LGServiceDirectory : LGNode {} // Leistungsverzeichnis
+
++ (LGServiceDirectory *)serviceDirectoryWithCSVString:(NSString *)csvString errors:(LGErrors *)problems;
+
+// 01 Informationen Leistungsverzeichnis
+@property NSString *title; // LVBEZ - Bezeichnung des Leistungsverzeichnisses
+
+// 02 Informationen Projekt
+@property NSString *project; // PROBEZ - Bezeichnung des Projekts
+
+// 03 Informationen Auftraggeber
+@property NSString *client; // AGBEZ - Bezeichnung des Auftraggebers
+
+- (NSString *)d83StringAndErrors:(LGErrors *)errors;
 
 @end

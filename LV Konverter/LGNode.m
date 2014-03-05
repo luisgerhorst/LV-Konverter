@@ -29,6 +29,19 @@
 #import "LGNode.h"
 #import "LGService.h"
 #import "LGMutableOrdinalNumber.h"
+#import "LGErrors.h"
+#import "LGServiceDirectory.h"
+
+
+// Convert in LGServiceDirectory, range 400 -> 499.
+// Are only used internally, never added to LGErrors objects.
+
+NSInteger const LGNoChildrenAllowed = 400;
+
+NSInteger const LGInvalidChildClass = 401;
+NSString * const LGInvalidChildClass_ExpectedClassKey = @"expectedClass";
+NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
+
 
 @implementation LGNode
 
@@ -42,7 +55,7 @@
 }
 
 // used by LGService to make sure no children are appended to them
-- (id)initWithoutChildren
+- (id)initWithoutChildren // Only use for LGService.
 {
     self = [super init];
     return self;
@@ -54,17 +67,31 @@
 }
 
 // existing layers must be complete (all their children must be already added)
-- (void)appendChild:(LGNode *)aChild
+- (NSError *)appendChild:(LGNode *)aChild
 {
-    if ([children count] && ([[children objectAtIndex:0] class] != [aChild class])) @throw [NSException exceptionWithName:@"LGBadAddChildCall" reason:[NSString stringWithFormat:@"Node %@ can only contain children of class %@ (not %@)", self, [[children objectAtIndex:0] class], [aChild class]] userInfo:nil]; // if node already has children, new child must be of the same type (can't check for layers equality here because new child might not be complete yet)
-    else [children addObject:aChild];
+    if (!children) {
+        return [NSError errorWithDomain:LGErrorDomain
+                                   code:LGNoChildrenAllowed
+                               userInfo:nil];
+    } else if ([children count] && [children[0] class] != [aChild class]) {
+        return [NSError errorWithDomain:LGErrorDomain
+                                   code:LGInvalidChildClass
+                               userInfo:@{LGInvalidChildClass_ExpectedClassKey: [children[0] class], LGInvalidChildClass_FoundClassKey: [aChild class]}];
+    } else {
+        [children addObject:aChild];
+        return nil;
+    }
 }
 
+// Checks if all branches have the same depth.
 - (BOOL)layersValid
 {
-    NSUInteger layers = [[children objectAtIndex:0] layers];
-    for (LGNode *child in children) {
-        if ([child layers] != layers) return NO;
+    if (children && [children count]) {
+        NSUInteger layers = [[children objectAtIndex:0] layers];
+        for (LGNode *child in children) {
+            if ([child layers] != layers) return NO;
+        }
+        return YES;
     }
     return YES;
 }
@@ -94,7 +121,8 @@
         else {
             for (NSUInteger i = 0; i < [childsMaxCounts count]; i++) { // for each layer (under self)
                 if ([[childrensMaxCounts objectAtIndex:i] compare:[childsMaxCounts objectAtIndex:i]] == NSOrderedAscending) { // if childs max of layer > max of layer
-                    [childrensMaxCounts replaceObjectAtIndex:i withObject:[childsMaxCounts objectAtIndex:i]]; // max of layer = childs max of that layer
+                    [childrensMaxCounts replaceObjectAtIndex:i
+                                                  withObject:[childsMaxCounts objectAtIndex:i]]; // max of layer = childs max of that layer
                 }
             }
         }
@@ -122,9 +150,11 @@
  - always make the ordinal number ready for your children, they will directly insert themselves
  - return the ordinal number the same way you got it
  */
-- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme errors:(LGErrors *)errors
 {
-    @throw [NSException exceptionWithName:@"LGNode_d83SetsForOrdinalNumber" reason:@"Every class inheriting from LGNode has to overwrite the method - (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme" userInfo:nil];
+    @throw [NSException exceptionWithName:@"LGNode_d83SetsForOrdinalNumber"
+                                   reason:@"Every class inheriting from LGNode must implement the protocol LGNodeInherting."
+                                 userInfo:nil];
 }
 
 @end

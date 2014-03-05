@@ -30,6 +30,15 @@
 
 @class LGOrdinalNumber;
 @class LGOrdinalNumberScheme;
+@class LGErrors;
+
+
+extern NSInteger const LGNoChildrenAllowed;
+
+extern NSInteger const LGInvalidChildClass;
+extern NSString * const LGInvalidChildClass_ExpectedClassKey;
+extern NSString * const LGInvalidChildClass_FoundClassKey;
+
 
 @interface LGNode : NSObject {
     /*
@@ -37,7 +46,7 @@
      - same class
      - same number of sub-layers
      */
-    NSMutableArray *children;
+    NSMutableArray *children; // Is nil if subclass is LGService.
 }
 
 // Local:
@@ -45,7 +54,7 @@
 - (id)init;
 - (id)initWithoutChildren;
 - (NSMutableArray *)children;
-- (void)appendChild:(id)newChild;
+- (NSError *)appendChild:(LGNode *)newChild;
 - (BOOL)layersValid;
 
 // Recursive:
@@ -54,11 +63,11 @@
 - (NSUInteger)servicesCount; // with end element
 
 // Also in protocol:
-- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme;
+- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme errors:(LGErrors *)errors;
 
 @end
 
 // Inherting classes should conform to this protocol:
 @protocol LGNodeInherting
-- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme;
+- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme errors:(LGErrors *)errors;
 @end

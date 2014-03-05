@@ -27,8 +27,18 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "LGServiceType.h"
 #import "LGNode.h"
+
+@class LGServiceType;
+@class LGErrors;
+
+
+extern NSInteger const LGServiceUnitTooLong;
+extern NSString * const LGServiceUnitTooLong_OrdinalNumberKey;
+
+extern NSInteger const LGServiceTitleTooLong;
+extern NSString * const LGServiceTitleTooLong_OrdinalNumberKey;
+
 
 @interface LGService : LGNode <LGNodeInherting> {
     
@@ -45,8 +55,14 @@
     
 }
 
-- (id)initWithTitle:(NSString *)aTitle ofQuantity:(float)aQuantity inUnit:(NSString *)aUnit withCSVTypeString:(NSString *)typeString;
+- (id)initWithTitle:(NSString *)aTitle
+         ofQuantity:(float)aQuantity
+             inUnit:(NSString *)aUnit
+  withCSVTypeString:(NSString *)typeString
+             errors:(LGErrors *)errors;
 - (void)appendTextChunk:(NSString *)textChunk;
 - (void)trimText;
+
+- (NSString *)title;
 
 @end

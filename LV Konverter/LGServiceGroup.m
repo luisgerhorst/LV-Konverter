@@ -30,12 +30,21 @@
 #import "LGMutableOrdinalNumber.h"
 #import "LGSet.h"
 #import "LGOrdinalNumberScheme.h"
+#import "LGErrors.h"
+#import "LGServiceDirectory.h"
+
+
+// Summarize in LGErrors, range 100 -> 199.
+
+NSInteger const LGServiceGroupTitleTooLong = 100;
+NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
+
 
 @implementation LGServiceGroup
 
 - (id)init
 {
-    @throw [NSException exceptionWithName:@"LGServiceGroupInitialization" reason:@"Use initWithTitle:, not init" userInfo:nil];
+    @throw [NSException exceptionWithName:@"LGServiceGroupInitialization" reason:@"Use initWithTitle:, not init." userInfo:nil];
 }
 
 - (id)initWithTitle:(NSString *)string
@@ -57,18 +66,24 @@
 
 // D83
 
-- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+- (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
+                             ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
+                               errors:(LGErrors *)errors
 {
     NSMutableArray *sets = [NSMutableArray array];
-    [sets addObject:[self d83Set11WithOrdinalNumber:ordinalNumber ofScheme:ordinalNumberScheme]];
-    [sets addObject:[self d83Set12]];
+    [sets addObject:[self d83Set11WithOrdinalNumber:ordinalNumber
+                                           ofScheme:ordinalNumberScheme]];
+    [sets addObject:[self d83Set12AndErrors:errors
+                              ordinalNumber:ordinalNumber]];
     
     // put your own children one layer under you
     LGMutableOrdinalNumber *childrenOrdinalNumber = [[LGMutableOrdinalNumber alloc] initWithOrdinalNumber:ordinalNumber];
     [childrenOrdinalNumber layerDown];
     for (LGNode *child in children) {
         [childrenOrdinalNumber next]; // remeber: each new layer starts at 0
-        [sets addObjectsFromArray: [child d83SetsWithOrdinalNumber:(LGOrdinalNumber *)childrenOrdinalNumber ofScheme:ordinalNumberScheme]];
+        [sets addObjectsFromArray: [child d83SetsWithOrdinalNumber:(LGOrdinalNumber *)childrenOrdinalNumber
+                                                          ofScheme:ordinalNumberScheme
+                                                            errors:errors]];
     }
     
     [sets addObject:[self d83Set31WithOrdinalNumber:ordinalNumber ofScheme:ordinalNumberScheme]];
@@ -78,7 +93,8 @@
 
 // Sets
 
-- (LGSet *)d83Set11WithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme // 11 - Beginn einer LV-Gruppe
+- (LGSet *)d83Set11WithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
+                            ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme // 11 - Beginn einer LV-Gruppe
 {
     LGSet *set = [[LGSet alloc] init];
     [set setType:11];
@@ -87,11 +103,15 @@
     return set;
 }
 
-- (LGSet *)d83Set12 // 12 - Bezeichnung der LV-Gruppe
+- (LGSet *)d83Set12AndErrors:(LGErrors *)errors
+               ordinalNumber:(LGOrdinalNumber *)ordinalNumber // 12 - Bezeichnung der LV-Gruppe
 {
     LGSet *set = [[LGSet alloc] init];
     [set setType:12];
-    [set setCutString:title range:NSMakeRange(2, 40)]; // LVGRBEZ todo: cut to avoid error
+    // LVGRBEZ:
+    if ([set setCutString:title range:NSMakeRange(2, 40)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+                                                                                                 code:LGServiceGroupTitleTooLong
+                                                                                             userInfo:@{LGServiceGroupTitleTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
 }
 
@@ -115,6 +135,11 @@
         case LGServiceGroup_TYPE_A:
             return @"A";
     }
+}
+
+- (NSString *)title
+{
+    return title;
 }
 
 @end
