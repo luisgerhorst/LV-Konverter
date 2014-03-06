@@ -1,4 +1,16 @@
-# Struktur der CSV-Datei
+# LV Konverter
+
+Mithilfe dieses Programmes können Sie ganz einfach am Mac Leistungsverzeichnisse im D83-Format erstellen indem Sie das LV in einem beliebigen Tabellenkalkulationsprogramm (Numbers, Excel oder OpenOffice Calc) nach einer bestimmten Struktur erstellen, die Tabelle als CSV-Datei exportieren und diese dann anschließend mit LV Konverter ins D83-Format umwandeln.
+
+# Installation
+
+Laden Sie den Ordner als ZIP herunter, entpacken Sie es und verschieben Sie die Datei `LV Konverter.app` in ihren Programmordner.
+
+# Benutzung
+
+Um die CSV-Datei zu konvertieren öffnen Sie sie einfach mit LV Konverter, anschließend werden Probleme angezeigt die bei der Formatierung der Tabelle gemacht wurden. _Warnungen_ können ignoriert werden aber vor allem _Fehler_ sollten Sie beheben bevor Sie fortfahren. Danach können Sie die in der D83-Datei enthaltenen informationen ergänzen und danach den Speicherort für die D83-Datei auswählen.
+
+# Struktur der Tabelle
 
 Um eingelesen werden zu können muss die CSV-Datei einen bestimmten Aufbau haben.
 
