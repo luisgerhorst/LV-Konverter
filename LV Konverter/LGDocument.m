@@ -136,7 +136,7 @@
 - (IBAction)save:(id)sender
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
-    [savePanel setAllowedFileTypes:@[@"D83"]];
+    [savePanel setAllowedFileTypes:@[@"d83"]];
     [savePanel setExtensionHidden:NO];
     [savePanel setNameFieldStringValue:[[[[self fileURL] URLByDeletingPathExtension] URLByAppendingPathExtension:@"d83"] lastPathComponent]];
     [savePanel setDirectoryURL:[[self fileURL] URLByDeletingLastPathComponent]];

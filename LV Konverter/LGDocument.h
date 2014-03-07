@@ -31,11 +31,16 @@
 @class LGServiceDirectory;
 @class LGErrors;
 
-@interface LGDocument : NSDocument {}
+
+@interface LGDocument : NSDocument
 
 @property LGServiceDirectory *serviceDirectory;
 @property LGErrors *errors;
 
+- (IBAction)openFileWithDefaultApp:(id)sender;
+- (IBAction)reload:(id)sender;
+- (IBAction)cancelErrorSheet:(id)sender;
+- (IBAction)endErrorSheet:(id)sender;
 - (IBAction)save:(id)sender;
 
 @end
