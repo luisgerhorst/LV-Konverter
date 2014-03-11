@@ -39,6 +39,10 @@
 @property NSFileManager *fileManager;
 @property NSDate *fileModificationDateAtLastOpen;
 
+@property NSOpenPanel *chooseApplicationPanel;
+@property NSPopUpButton *allowedApplicationsPullDownButton;
+@property NSArray *fileURLHandlerURLs;
+
 @end
 
 
@@ -48,7 +52,9 @@
 {
     self = [super init];
     if (self) {
+        
         _fileManager = [NSFileManager defaultManager];
+        
     }
     return self;
 }
@@ -82,9 +88,71 @@
     
 }
 
-- (IBAction)openFileWithDefaultApp:(id)sender
+- (IBAction)openFileWith:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[self fileURL]];
+    self.chooseApplicationPanel = [NSOpenPanel openPanel];
+    
+    self.allowedApplicationsPullDownButton = [[NSPopUpButton alloc] init];
+    [self.allowedApplicationsPullDownButton addItemsWithTitles:@[@"Empfohlene Programme", @"Alle Programme"]];
+    [self.allowedApplicationsPullDownButton sizeToFit];
+    [self.allowedApplicationsPullDownButton setAction:@selector(updateChooseApplicationPanelEnabledURLs)];
+    [self.chooseApplicationPanel setAccessoryView:self.allowedApplicationsPullDownButton];
+    
+    [self.chooseApplicationPanel setDelegate:self];
+    [self.chooseApplicationPanel setAllowsMultipleSelection:NO];
+    [self.chooseApplicationPanel setAllowedFileTypes:@[@"app"]];
+    [self.chooseApplicationPanel setCanChooseDirectories:NO];
+    [self.chooseApplicationPanel setDirectoryURL:[self.fileManager URLsForDirectory:NSApplicationDirectory inDomains:NSLocalDomainMask][0]];
+    NSString *title = [NSString stringWithFormat:@"%@ öffnen mit...", [[self fileURL] lastPathComponent]];
+    [self.chooseApplicationPanel setTitle:title];
+    [self.chooseApplicationPanel runModal];
+    NSURL *choosenApplicationURL = [self.chooseApplicationPanel URLs][0];
+    [[NSWorkspace sharedWorkspace] openFile:[[self fileURL] path]
+                            withApplication:[choosenApplicationURL path]
+                              andDeactivate:YES];
+}
+
+- (void)updateChooseApplicationPanelEnabledURLs
+{
+    // Better way to make the panel recall it's delegate to endable the URLs.
+    NSURL *directoryURL = [self.chooseApplicationPanel directoryURL];
+    [self.chooseApplicationPanel setDirectoryURL:[NSURL URLWithString:@"/"]];
+    [self.chooseApplicationPanel setDirectoryURL:directoryURL];
+}
+
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+    if (sender == self.chooseApplicationPanel) { // Comes from chooseApplicationPanel.
+        
+        // Activate all if "all applications" is selected.
+        if (1 == [self.allowedApplicationsPullDownButton indexOfSelectedItem]) {
+            return YES;
+        }
+        
+        if (![[NSWorkspace sharedWorkspace] isFilePackageAtPath:[url path]]) {
+            return YES;
+        }
+        
+        // Fill known handlers for file type array.
+        if (!self.fileURLHandlerURLs) {
+            self.fileURLHandlerURLs = (__bridge NSArray *)(LSCopyApplicationURLsForURL((__bridge CFURLRef)([self fileURL]), kLSRolesAll));
+        }
+        
+        // Check if given app is handler for file type.
+        for (NSURL *handlerURL in self.fileURLHandlerURLs) {
+            if ([url isEqual:handlerURL]) {
+                return YES;
+            }
+        }
+        
+        return NO;
+        
+    } else { // If not throw exception.
+        @throw [NSException exceptionWithName:@"LGDocument_panel:shouldEnableURL:_Call"
+                                       reason:@"Unexpected call with unknown sender to panel:shouldEnableURL:"
+                                     userInfo:nil];
+        return NO;
+    }
 }
 
 - (IBAction)reload:(id)sender
