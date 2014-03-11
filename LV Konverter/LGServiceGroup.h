@@ -35,24 +35,11 @@ extern NSInteger const LGServiceGroupTitleTooLong;
 extern NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey;
 
 
-typedef NS_ENUM(NSInteger, LGServiceGroup_TYPE) { // LVGRART
-    LGServiceGroup_TYPE_N, // N - Normalgruppe
-    LGServiceGroup_TYPE_G, // G
-    LGServiceGroup_TYPE_A, // A
-};
+@interface LGServiceGroup : LGNode <LGNodeInherting> // LV-Gruppe
 
-@interface LGServiceGroup : LGNode <LGNodeInherting> { // LV-Gruppe
-    
-    // 11 Beginn einer LV-Gruppe
-    LGServiceGroup_TYPE type; // LVGRART
-    
-    // 12 Bezeichnung einer LV-Gruppe
-    NSString *title; // LVGRBEZ
-    
-}
+// 12 Bezeichnung einer LV-Gruppe
+@property (readonly) NSString *title; // LVGRBEZ
 
 - (id)initWithTitle:(NSString *)string;
-
-- (NSString *)title;
 
 @end

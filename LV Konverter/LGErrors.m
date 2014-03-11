@@ -55,7 +55,7 @@ NSString * const LGErrorPriorityWarning = @"Warnung";
 
 @interface LGErrors ()
 
-@property NSMutableArray *errors;
+@property (readonly) NSMutableArray *errors;
 
 @end
 

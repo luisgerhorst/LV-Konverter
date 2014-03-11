@@ -28,36 +28,38 @@
 
 #import "LGMutableOrdinalNumber.h"
 #import "LGOrdinalNumber.h"
+#import "LGOrdinalNumberProtected.h"
+
 
 @implementation LGMutableOrdinalNumber
 
 - (void)layerUp {
-    NSMutableArray *location = [NSMutableArray arrayWithArray:ordinalNumber];
+    NSMutableArray *location = [NSMutableArray arrayWithArray:self.ordinalNumber];
     
     [location removeLastObject];
     
-    ordinalNumber = location;
+    self.ordinalNumber = location;
 }
 
 // starts at 0, must be incremented before generating first string
 - (void)layerDown
 {
-    NSMutableArray *location = [NSMutableArray arrayWithArray:ordinalNumber];
+    NSMutableArray *location = [NSMutableArray arrayWithArray:self.ordinalNumber];
     
     [location addObject:[NSNumber numberWithUnsignedInteger:0]];
     
-    ordinalNumber = location;
+    self.ordinalNumber = location;
 }
 
 - (void)next
 {
-    NSMutableArray *location = [NSMutableArray arrayWithArray:ordinalNumber];
+    NSMutableArray *location = [NSMutableArray arrayWithArray:self.ordinalNumber];
     
     NSUInteger lastIndex = [location count]-1;
     NSNumber *lastIncremented = [NSNumber numberWithUnsignedInteger:[[location objectAtIndex:lastIndex] unsignedIntegerValue] + 1];
     [location replaceObjectAtIndex:lastIndex withObject:lastIncremented];
     
-    ordinalNumber = location;
+    self.ordinalNumber = location;
 }
 
 @end

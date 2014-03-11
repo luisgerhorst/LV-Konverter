@@ -33,6 +33,15 @@ NSUInteger digitsCount(NSInteger i) {
     return i > 0 ? (NSUInteger)log10((double)i) + 1 : 1;
 }
 
+
+@interface LGOrdinalNumberScheme ()
+
+// Array of NSNumbers indicating how many digits to use for each layer when generating the OZMASKE
+@property (readonly) NSArray *scheme;
+
+@end
+
+
 @implementation LGOrdinalNumberScheme
 
 - (id)initWithMaxChildCounts:(NSArray *)maxChildCounts
@@ -56,7 +65,7 @@ NSUInteger digitsCount(NSInteger i) {
         NSMutableArray *s = [NSMutableArray array];
         for (NSNumber *maxChildCount in maxChildCounts) [s addObject:[NSNumber numberWithUnsignedInteger:digitsCount([maxChildCount unsignedIntegerValue])]];
         
-        scheme = s;
+        _scheme = s;
         
     }
     return self;
@@ -68,7 +77,7 @@ NSUInteger digitsCount(NSInteger i) {
     
     NSUInteger locationCount = [ordinalNumber depth];
     NSUInteger locationIndex = 0;
-    for (NSNumber *digitsObject in scheme) { // For each layer in scheme ...
+    for (NSNumber *digitsObject in self.scheme) { // For each layer in scheme ...
         NSUInteger digits = [digitsObject unsignedIntegerValue];
         NSString *string;
         if (locationIndex < locationCount) { // If location is afterwards, insert number.
@@ -91,21 +100,23 @@ NSUInteger digitsCount(NSInteger i) {
     
     // Groups:
     NSUInteger groupDepth = 1;
-    for (NSUInteger i = 0; i < [scheme count] - 1; i++) {
-        NSUInteger digits = [[scheme objectAtIndex:i] unsignedIntegerValue];
+    for (NSUInteger i = 0; i < [self.scheme count] - 1; i++) {
+        NSUInteger digits = [[self.scheme objectAtIndex:i] unsignedIntegerValue];
         for (NSUInteger i = 0; i < digits; i++) [string appendFormat:@"%lu", (unsigned long)groupDepth];
         groupDepth++;
     }
     
     // Services:
-    NSUInteger serviceDigits = [[scheme objectAtIndex:[scheme count] - 1] unsignedIntegerValue];
+    NSUInteger serviceDigits = [[self.scheme objectAtIndex:[self.scheme count] - 1] unsignedIntegerValue];
     for (NSUInteger i = 0; i < serviceDigits; i++) [string appendString:@"P"];
     
     // Zeros
     while ([string length] < 9) [string appendString:@"0"];
     
     // Validate
-    if ([string length] != 9) @throw [NSException exceptionWithName:@"d83Date74" reason:@"Resulting data element if too long" userInfo:nil]; // Todo: Turn into problem: Too large, try removing service or sub-points.
+    if ([string length] != 9) @throw [NSException exceptionWithName:@"d83Date74"
+                                                             reason:@"Resulting data element if too long"
+                                                           userInfo:nil]; // Error very unlikely to happen.
     
     return string;
 }

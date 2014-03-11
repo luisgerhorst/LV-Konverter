@@ -28,14 +28,22 @@
 
 #import "LGSet.h"
 
+
+@interface LGSet ()
+
+@property (readonly) NSMutableString *string; // is <= 74 chars
+
+@end
+
+
 @implementation LGSet
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        string = [NSMutableString string];
-        for (int i = 0; i < 74; i++) [string appendString:@" "];
+        _string = [NSMutableString string];
+        for (int i = 0; i < 74; i++) [_string appendString:@" "];
     }
     return self;
 }
@@ -53,7 +61,7 @@
     NSString *ASCIIString = [[NSString alloc] initWithData:ASCIIData encoding:NSASCIIStringEncoding];
     if ([ASCIIString length] > range.length) @throw [NSException exceptionWithName:@"LGSet_SetStringForRange" reason:[NSString stringWithFormat:@"String \"%@\" in ASCII-Encoding has more than %lu characters.", s, (unsigned long)range.length] userInfo:nil];
     while ([ASCIIString length] < range.length) ASCIIString = [NSString stringWithFormat:@"%@ ", ASCIIString];
-    [string replaceCharactersInRange:range withString:ASCIIString];
+    [self.string replaceCharactersInRange:range withString:ASCIIString];
 }
 
 - (void)setInteger:(NSUInteger)number range:(NSRange)range // Numerisch, werden mit Nullen vor Zahl aufgefüllt.
@@ -100,7 +108,7 @@
     while ([setNumberString length] < 6) setNumberString = [NSString stringWithFormat:@"0%@", setNumberString];
     
     // return string + setNumber
-    return [NSString stringWithFormat:@"%@%@", string, setNumberString];
+    return [NSString stringWithFormat:@"%@%@", self.string, setNumberString];
     
 }
 

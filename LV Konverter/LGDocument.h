@@ -32,12 +32,12 @@
 @class LGErrors;
 
 
-@interface LGDocument : NSDocument
+@interface LGDocument : NSDocument <NSOpenSavePanelDelegate>
 
 @property LGServiceDirectory *serviceDirectory;
 @property LGErrors *errors;
 
-- (IBAction)openFileWithDefaultApp:(id)sender;
+- (IBAction)openFileWith:(id)sender;
 - (IBAction)reload:(id)sender;
 - (IBAction)cancelErrorSheet:(id)sender;
 - (IBAction)endErrorSheet:(id)sender;

@@ -28,9 +28,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LGStack : NSObject {
-    NSMutableArray *stack;
-}
+@interface LGStack : NSObject
 
 - (id)init;
 - (void)push:(id)object;

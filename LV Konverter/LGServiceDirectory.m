@@ -84,7 +84,7 @@ NSString *removeSpaces(NSString *string) {
 
 @interface LGServiceDirectory ()
 
-@property NSDate *date; // LVDATUM - Datum des Leistungsverzeichnisses
+@property (readonly) NSDate *date; // LVDATUM - Datum des Leistungsverzeichnisses
 
 @end
 
@@ -347,7 +347,7 @@ NSString *removeSpaces(NSString *string) {
     LGOrdinalNumberScheme *ordinalNumberScheme = [[LGOrdinalNumberScheme alloc] initWithMaxChildCounts:[self maxChildCounts]];
     
     // Own children are at the top.
-    for (LGNode *child in children) {
+    for (LGNode *child in self.children) {
         [ordinalNumber next];
         [sets addObjectsFromArray:[child d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
                                                          ofScheme:ordinalNumberScheme

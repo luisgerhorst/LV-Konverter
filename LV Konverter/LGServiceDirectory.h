@@ -57,7 +57,7 @@ extern NSString * const LGDeadFieldsWithTextInServiceTextChunkLine_LineIndexKey;
 
 // Class interface.
 
-@interface LGServiceDirectory : LGNode {} // Leistungsverzeichnis
+@interface LGServiceDirectory : LGNode // Leistungsverzeichnis
 
 + (LGServiceDirectory *)serviceDirectoryWithCSVString:(NSString *)csvString errors:(LGErrors *)problems;
 

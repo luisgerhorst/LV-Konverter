@@ -16,7 +16,7 @@
         <window title="Fehler" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="hLE-rv-VRj">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="207" width="642" height="323"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="W8w-Bz-9Sk">
                 <rect key="frame" x="0.0" y="0.0" width="642" height="323"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -165,7 +165,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PSM-tO-fjg">
-                        <rect key="frame" x="132" y="13" width="122" height="32"/>
+                        <rect key="frame" x="134" y="13" width="122" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Aktualisieren" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O1l-2e-JhP">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -187,14 +187,14 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Uq-zG-Wrt">
-                        <rect key="frame" x="14" y="13" width="118" height="32"/>
+                        <rect key="frame" x="14" y="13" width="120" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Datei öffnen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5NV-8I-gjB">
+                        <buttonCell key="cell" type="push" title="Öffnen mit..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5NV-8I-gjB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="openFileWithDefaultApp:" target="-2" id="Sqg-yU-Com"/>
+                            <action selector="openFileWith:" target="-2" id="FWe-po-Vaz"/>
                         </connections>
                     </button>
                 </subviews>

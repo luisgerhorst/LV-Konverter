@@ -49,7 +49,7 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
 {
     self = [super init];
     if (self) {
-        children = [NSMutableArray array];
+        _children = [NSMutableArray array];
     }
     return self;
 }
@@ -61,24 +61,19 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
     return self;
 }
 
-- (NSMutableArray *)children
-{
-    return children;
-}
-
 // existing layers must be complete (all their children must be already added)
 - (NSError *)appendChild:(LGNode *)aChild
 {
-    if (!children) {
+    if (!self.children) {
         return [NSError errorWithDomain:LGErrorDomain
                                    code:LGNoChildrenAllowed
                                userInfo:nil];
-    } else if ([children count] && [children[0] class] != [aChild class]) {
+    } else if ([self.children count] && [self.children[0] class] != [aChild class]) {
         return [NSError errorWithDomain:LGErrorDomain
                                    code:LGInvalidChildClass
-                               userInfo:@{LGInvalidChildClass_ExpectedClassKey: [children[0] class], LGInvalidChildClass_FoundClassKey: [aChild class]}];
+                               userInfo:@{LGInvalidChildClass_ExpectedClassKey: [self.children[0] class], LGInvalidChildClass_FoundClassKey: [aChild class]}];
     } else {
-        [children addObject:aChild];
+        [self.children addObject:aChild];
         return nil;
     }
 }
@@ -86,9 +81,9 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
 // Checks if all branches have the same depth.
 - (BOOL)layersValid
 {
-    if (children && [children count]) {
-        NSUInteger layers = [[children objectAtIndex:0] layers];
-        for (LGNode *child in children) {
+    if (self.children && [self.children count]) {
+        NSUInteger layers = [[self.children objectAtIndex:0] layers];
+        for (LGNode *child in self.children) {
             if ([child layers] != layers) return NO;
         }
         return YES;
@@ -100,8 +95,8 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
 
 - (NSUInteger)layers
 {
-    if (children && [children count])
-        return [[children objectAtIndex:0] layers] + 1;
+    if (self.children && [self.children count])
+        return [[self.children objectAtIndex:0] layers] + 1;
     else
         return 1;
 }
@@ -115,7 +110,7 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
 {
     
     NSMutableArray *childrensMaxCounts;
-    for (LGNode *child in children) { // each child
+    for (LGNode *child in self.children) { // each child
         NSArray *childsMaxCounts = [child maxChildCounts]; // get max child counts
         if (!childrensMaxCounts) childrensMaxCounts = [NSMutableArray arrayWithArray:childsMaxCounts];
         else {
@@ -129,7 +124,7 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
     }
     
     // append childrensMaxCounts to own child count array
-    NSMutableArray *full = [NSMutableArray arrayWithObject:[NSNumber numberWithInteger:[children count]]];
+    NSMutableArray *full = [NSMutableArray arrayWithObject:[NSNumber numberWithInteger:[self.children count]]];
     [full addObjectsFromArray:childrensMaxCounts];
     
     return full;
@@ -139,7 +134,7 @@ NSString * const LGInvalidChildClass_FoundClassKey = @"foundClass";
 - (NSUInteger)servicesCount
 {
     NSUInteger servicesCount = 0;
-    for (LGNode *child in children) servicesCount += [child servicesCount];
+    for (LGNode *child in self.children) servicesCount += [child servicesCount];
     return servicesCount;
 }
 

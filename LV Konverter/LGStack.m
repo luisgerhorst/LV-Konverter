@@ -28,42 +28,50 @@
 
 #import "LGStack.h"
 
+
+@interface LGStack ()
+
+@property (readonly) NSMutableArray *stack;
+
+@end
+
+
 @implementation LGStack
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        stack = [NSMutableArray array];
+        _stack = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)push:(id)object
 {
-    // NSLog(@"pushing object of class %@", object);
-    [stack addObject:object];
+    //NSLog(@"pushing object of class %@", object);
+    [self.stack addObject:object];
 }
 
 - (void)pop
 {
-    [stack removeLastObject];
+    [self.stack removeLastObject];
 }
 
 - (void)pop:(NSUInteger)toPop
 {
-    for (int i = 0; i < toPop; i++) [stack removeLastObject];
+    for (int i = 0; i < toPop; i++) [self.stack removeLastObject];
 }
 
 - (NSUInteger)heigth
 {
-    return [stack count];
+    return [self.stack count];
 }
 
 - (id)objectOnTop
 {
-    NSUInteger count = [stack count];
-    if (count > 0) return [stack objectAtIndex:count - 1];
+    NSUInteger count = [self.stack count];
+    if (count > 0) return [self.stack objectAtIndex:count - 1];
     else return nil;
 }
 

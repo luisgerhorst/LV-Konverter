@@ -44,6 +44,19 @@ NSInteger const LGServiceTitleTooLong = 201;
 NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 
 
+@interface LGService ()
+
+// Beginn einer Teilleistung
+@property (readonly) float quantity; // MENGE
+@property (readonly) NSString *unit; // EINHEIT
+@property (readonly) LGServiceType *type; // contains POSART1, POSART2 and POSTYP
+
+// Langtext
+@property NSMutableString *text; // LANGTEXT
+
+@end
+
+
 @implementation LGService
 
 - (id)init
@@ -61,29 +74,29 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 {
     self = [super initWithoutChildren];
     if (self) {
-        title = aTitle;
-        quantity = aQuantity;
-        unit = aUnit;
+        _title = aTitle;
+        _quantity = aQuantity;
+        _unit = aUnit;
         
         NSError *error;
-        type = [[LGServiceType alloc] initWithCSVString:typeString
+        _type = [[LGServiceType alloc] initWithCSVString:typeString
                                      forServiceWithUnit:aUnit
                                                  error:&error];
-        if (!type && [error code] == LGInvalidServiceType) {
+        if (!_type && [error code] == LGInvalidServiceType) {
             [errors addError:[NSError errorWithDomain:LGErrorDomain
                                                  code:LGInvalidServiceType
-                                             userInfo:@{LGInvalidServiceType_ServiceTitleKey: title}]];
+                                             userInfo:@{LGInvalidServiceType_ServiceTitleKey: _title}]];
         }
         
-        text = [NSMutableString string];
+        _text = [NSMutableString string];
     }
     return self;
 }
 
 - (void)appendTextChunk:(NSString *)textChunk
 {
-    if ([text length]) [text appendString:@"\n"];
-    [text appendString:textChunk];
+    if ([self.text length]) [self.text appendString:@"\n"];
+    [self.text appendString:textChunk];
 }
 
 /*
@@ -93,25 +106,45 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 - (void)trimText
 {
     // remove whitespaces from line end
-    NSRegularExpression *whitespacesLineEnd = [NSRegularExpression regularExpressionWithPattern:@"[ \t]+\n" options:0 error:nil];
-    text = [NSMutableString stringWithString:[whitespacesLineEnd stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"\n"]];
+    NSRegularExpression *whitespacesLineEnd = [NSRegularExpression regularExpressionWithPattern:@"[ \t]+\n"
+                                                                                        options:0
+                                                                                          error:nil];
+    self.text = [NSMutableString stringWithString:[whitespacesLineEnd stringByReplacingMatchesInString:self.text
+                                                                                               options:0
+                                                                                                 range:NSMakeRange(0, [self.text length])
+                                                                                          withTemplate:@"\n"]];
     
     // remove whitespaces from end
-    NSRegularExpression *whitespacesEnd = [NSRegularExpression regularExpressionWithPattern:@"[ \t]+$" options:0 error:nil];
-    text = [NSMutableString stringWithString:[whitespacesEnd stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""]];
+    NSRegularExpression *whitespacesEnd = [NSRegularExpression regularExpressionWithPattern:@"[ \t]+$"
+                                                                                    options:0
+                                                                                      error:nil];
+    self.text = [NSMutableString stringWithString:[whitespacesEnd stringByReplacingMatchesInString:self.text
+                                                                                           options:0
+                                                                                             range:NSMakeRange(0, [self.text length])
+                                                                                      withTemplate:@""]];
     
     // remove newlines from beginning
-    NSRegularExpression *newlinesAtStart = [NSRegularExpression regularExpressionWithPattern:@"^+[\n]" options:0 error:nil];
-    text = [NSMutableString stringWithString:[newlinesAtStart stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""]];
+    NSRegularExpression *newlinesAtStart = [NSRegularExpression regularExpressionWithPattern:@"^+[\n]"
+                                                                                     options:0
+                                                                                       error:nil];
+    self.text = [NSMutableString stringWithString:[newlinesAtStart stringByReplacingMatchesInString:self.text
+                                                                                            options:0
+                                                                                              range:NSMakeRange(0, [self.text length])
+                                                                                       withTemplate:@""]];
     
     // removew newlines from end
-    NSRegularExpression *newlinesAtEnd = [NSRegularExpression regularExpressionWithPattern:@"[\n]+$" options:0 error:nil];
-    text = [NSMutableString stringWithString:[newlinesAtEnd stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""]];
+    NSRegularExpression *newlinesAtEnd = [NSRegularExpression regularExpressionWithPattern:@"[\n]+$"
+                                                                                   options:0
+                                                                                     error:nil];
+    self.text = [NSMutableString stringWithString:[newlinesAtEnd stringByReplacingMatchesInString:self.text
+                                                                                          options:0
+                                                                                            range:NSMakeRange(0, [self.text length])
+                                                                                     withTemplate:@""]];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<Service: %@>", title];
+    return [NSString stringWithFormat:@"<Service: %@>", self.title];
 }
 
 // Overwriting LGNode:
@@ -137,7 +170,7 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     // Split text by lines, spaces and long words by length and save them into an array.
     NSUInteger maxLength = 55; // max length of one line
     NSRegularExpression *wordLengthRegExp = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@".{1,%lu}", (unsigned long)maxLength] options:0 error:nil]; // 55 chars
-    NSArray *inputLines = [text componentsSeparatedByString:@"\n"];
+    NSArray *inputLines = [self.text componentsSeparatedByString:@"\n"];
     NSMutableArray *lines = [NSMutableArray array]; // output array
     for (NSString *line in inputLines) {
         if ([line length] <= maxLength) {
@@ -180,10 +213,10 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     LGSet *set = [[LGSet alloc] init];
     [set setType:21];
     [set setString:[ordinalNumberScheme d83Data73OfOrdinalNumber:ordinalNumber] range:NSMakeRange(2, 9)]; // OZ
-    [set setString:[type d83Data787980] range:NSMakeRange(11,3)]; // POSART1 + POSART2 + POSTYP
-    [set setFloat:quantity range:NSMakeRange(23,11) comma:3]; // MENGE
+    [set setString:[self.type d83Data787980] range:NSMakeRange(11,3)]; // POSART1 + POSART2 + POSTYP
+    [set setFloat:self.quantity range:NSMakeRange(23,11) comma:3]; // MENGE
     // EINHEIT:
-    if ([set setCutString:unit range:NSMakeRange(34,4)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+    if ([set setCutString:self.unit range:NSMakeRange(34,4)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
                                                                                                code:LGServiceUnitTooLong
                                                                                            userInfo:@{LGServiceUnitTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
@@ -195,7 +228,7 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     LGSet *set = [[LGSet alloc] init];
     [set setType:25];
     // KURZTEXT:
-    if ([set setCutString:title range:NSMakeRange(2, 70)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+    if ([set setCutString:self.title range:NSMakeRange(2, 70)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
                                                                                                  code:LGServiceTitleTooLong
                                                                                              userInfo:@{LGServiceTitleTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
@@ -207,11 +240,6 @@ NSString * const LGServiceTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     [set setType:26];
     [set setString:chunk range:NSMakeRange(5, 55)]; // LANGTEXT
     return set;
-}
-
-- (NSString *)title
-{
-    return title;
 }
 
 @end

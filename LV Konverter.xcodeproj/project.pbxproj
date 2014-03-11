@@ -48,6 +48,7 @@
 		5916852518B2620C009981D8 /* LGErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGErrors.h; sourceTree = "<group>"; };
 		5916852618B2620C009981D8 /* LGErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGErrors.m; sourceTree = "<group>"; };
 		59A37D4318C3761900129997 /* ErrorSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorSheet.xib; sourceTree = "<group>"; };
+		59E492C718CF5A830032C9AB /* LGOrdinalNumberProtected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGOrdinalNumberProtected.h; sourceTree = "<group>"; };
 		59FE5E4C18AA6A3D00DF81BE /* LV Konverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LV Konverter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FE5E4F18AA6A3D00DF81BE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		59FE5E5218AA6A3D00DF81BE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -119,6 +120,7 @@
 				59FE5E8C18AA6AC000DF81BE /* LGOrdinalNumberScheme.h */,
 				59FE5E8D18AA6AC000DF81BE /* LGOrdinalNumberScheme.m */,
 				59FE5E8A18AA6AC000DF81BE /* LGOrdinalNumber.h */,
+				59E492C718CF5A830032C9AB /* LGOrdinalNumberProtected.h */,
 				59FE5E8B18AA6AC000DF81BE /* LGOrdinalNumber.m */,
 				59FE5E8618AA6AC000DF81BE /* LGMutableOrdinalNumber.h */,
 				59FE5E8718AA6AC000DF81BE /* LGMutableOrdinalNumber.m */,

@@ -40,6 +40,21 @@ NSInteger const LGServiceGroupTitleTooLong = 100;
 NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 
 
+typedef NS_ENUM(NSInteger, LGServiceGroup_TYPE) { // LVGRART
+    LGServiceGroup_TYPE_N, // N - Normalgruppe
+    LGServiceGroup_TYPE_G, // G
+    LGServiceGroup_TYPE_A, // A
+};
+
+
+@interface LGServiceGroup ()
+
+// 11 Beginn einer LV-Gruppe
+@property (readonly) LGServiceGroup_TYPE type; // LVGRART
+
+@end
+
+
 @implementation LGServiceGroup
 
 - (id)init
@@ -51,21 +66,20 @@ NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 {
     self = [super init];
     if (self) {
-        title = string;
-        type = LGServiceGroup_TYPE_N;
+        _title = string;
+        _type = LGServiceGroup_TYPE_N;
     }
     return self;
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<Group: %@>", title];
+    return [NSString stringWithFormat:@"<Group: %@>", self.title];
 }
-
-// Overwriting LGNode:
 
 // D83
 
+// Overwriting LGNode:
 - (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber
                              ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme
                                errors:(LGErrors *)errors
@@ -79,7 +93,7 @@ NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     // put your own children one layer under you
     LGMutableOrdinalNumber *childrenOrdinalNumber = [[LGMutableOrdinalNumber alloc] initWithOrdinalNumber:ordinalNumber];
     [childrenOrdinalNumber layerDown];
-    for (LGNode *child in children) {
+    for (LGNode *child in self.children) {
         [childrenOrdinalNumber next]; // remeber: each new layer starts at 0
         [sets addObjectsFromArray: [child d83SetsWithOrdinalNumber:(LGOrdinalNumber *)childrenOrdinalNumber
                                                           ofScheme:ordinalNumberScheme
@@ -109,7 +123,7 @@ NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
     LGSet *set = [[LGSet alloc] init];
     [set setType:12];
     // LVGRBEZ:
-    if ([set setCutString:title range:NSMakeRange(2, 40)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
+    if ([set setCutString:self.title range:NSMakeRange(2, 40)]) [errors addError:[NSError errorWithDomain:LGErrorDomain
                                                                                                  code:LGServiceGroupTitleTooLong
                                                                                              userInfo:@{LGServiceGroupTitleTooLong_OrdinalNumberKey: ordinalNumber}]];
     return set;
@@ -127,7 +141,7 @@ NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
 
 - (NSString *)d83Data67 // 67 - LVGRART - Art der LV-Gruppe (as string)
 {
-    switch (type) {
+    switch (self.type) {
         case LGServiceGroup_TYPE_N:
             return @"N";
         case LGServiceGroup_TYPE_G:
@@ -135,11 +149,6 @@ NSString * const LGServiceGroupTitleTooLong_OrdinalNumberKey = @"ordinalNumber";
         case LGServiceGroup_TYPE_A:
             return @"A";
     }
-}
-
-- (NSString *)title
-{
-    return title;
 }
 
 @end

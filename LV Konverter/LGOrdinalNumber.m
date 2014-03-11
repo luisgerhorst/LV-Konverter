@@ -27,6 +27,7 @@
  */
 
 #import "LGOrdinalNumber.h"
+#import "LGOrdinalNumberProtected.h"
 
 @implementation LGOrdinalNumber
 
@@ -35,7 +36,7 @@
 {
     self = [super init];
     if (self) {
-        ordinalNumber = [NSArray arrayWithObject:@(0)];
+        _ordinalNumber = [NSArray arrayWithObject:@(0)];
     }
     return self;
 }
@@ -54,12 +55,12 @@
         
         // Fix:
         if ([[numbers objectAtIndex:[numbers count]-1] integerValue] == 0) [numbers removeLastObject]; // Remove 0 at end caused by dot at the end of the string.
-        ordinalNumber = numbers;
+        self.ordinalNumber = numbers;
         
         // Validate:
-        if ([ordinalNumber count] == 0) return nil;
-        for (NSUInteger i = 0; i < [ordinalNumber count]; i++) { // Each number ...
-            if ([[ordinalNumber objectAtIndex:i] integerValue] > 0) continue; // ... must be larger then 0.
+        if ([self.ordinalNumber count] == 0) return nil;
+        for (NSUInteger i = 0; i < [self.ordinalNumber count]; i++) { // Each number ...
+            if ([[self.ordinalNumber objectAtIndex:i] integerValue] > 0) continue; // ... must be larger then 0.
             return nil;
         }
         
@@ -71,30 +72,25 @@
 {
     self = [super init];
     if (self) {
-        ordinalNumber = [inputOrdinalNumber arrayValue];
+        self.ordinalNumber = [inputOrdinalNumber arrayValue];
     }
     return self;
 }
 
 - (NSUInteger)depth
 {
-    return [ordinalNumber count];
+    return [self.ordinalNumber count];
 }
 
 - (NSUInteger)numberForPosition:(NSUInteger)position
 {
-    return [[ordinalNumber objectAtIndex:position] unsignedIntegerValue];
-}
-
-- (NSArray *)arrayValue
-{
-    return [NSArray arrayWithArray:ordinalNumber];
+    return [[self.ordinalNumber objectAtIndex:position] unsignedIntegerValue];
 }
 
 - (NSString *)stringValue
 {
     NSMutableString *string = [NSMutableString string];
-    for (NSNumber *number in ordinalNumber) {
+    for (NSNumber *number in self.ordinalNumber) {
         [string appendString:[number stringValue]];
         [string appendString:@"."];
     }

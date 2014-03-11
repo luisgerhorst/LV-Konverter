@@ -40,20 +40,10 @@ extern NSInteger const LGServiceTitleTooLong;
 extern NSString * const LGServiceTitleTooLong_OrdinalNumberKey;
 
 
-@interface LGService : LGNode <LGNodeInherting> {
-    
-    // Beginn einer Teilleistung
-    float quantity; // MENGE
-    NSString *unit; // EINHEIT
-    LGServiceType *type; // contains POSART1, POSART2 and POSTYP
-    
-    // Kurztext
-    NSString *title; // KURZTEXT
-    
-    // Langtext
-    NSMutableString *text; // LANGTEXT
-    
-}
+@interface LGService : LGNode <LGNodeInherting>
+
+// Kurztext
+@property (readonly) NSString *title; // KURZTEXT
 
 - (id)initWithTitle:(NSString *)aTitle
          ofQuantity:(float)aQuantity
@@ -62,7 +52,5 @@ extern NSString * const LGServiceTitleTooLong_OrdinalNumberKey;
              errors:(LGErrors *)errors;
 - (void)appendTextChunk:(NSString *)textChunk;
 - (void)trimText;
-
-- (NSString *)title;
 
 @end

@@ -40,20 +40,15 @@ extern NSString * const LGInvalidChildClass_ExpectedClassKey;
 extern NSString * const LGInvalidChildClass_FoundClassKey;
 
 
-@interface LGNode : NSObject {
-    /*
-     Child rules:
-     - same class
-     - same number of sub-layers
-     */
-    NSMutableArray *children; // Is nil if subclass is LGService.
-}
+@interface LGNode : NSObject
+
+@property (readonly) NSMutableArray *children;
 
 // Local:
 
 - (id)init;
 - (id)initWithoutChildren;
-- (NSMutableArray *)children;
+
 - (NSError *)appendChild:(LGNode *)newChild;
 - (BOOL)layersValid;
 
@@ -67,7 +62,10 @@ extern NSString * const LGInvalidChildClass_FoundClassKey;
 
 @end
 
+
 // Inherting classes should conform to this protocol:
 @protocol LGNodeInherting
+
 - (NSArray *)d83SetsWithOrdinalNumber:(LGOrdinalNumber *)ordinalNumber ofScheme:(LGOrdinalNumberScheme *)ordinalNumberScheme errors:(LGErrors *)errors;
+
 @end

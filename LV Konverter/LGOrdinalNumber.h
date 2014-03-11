@@ -28,10 +28,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LGOrdinalNumber : NSObject {
-    @protected
-    NSArray *ordinalNumber; // of NSNumbers
-}
+@interface LGOrdinalNumber : NSObject
 
 - (id)initWithCSVString:(NSString *)string;
 - (id)initWithOrdinalNumber:(LGOrdinalNumber *)inputOrdinalNumber;

@@ -29,7 +29,7 @@
 #import <Foundation/Foundation.h>
 #import "LGOrdinalNumber.h"
 
-@interface LGMutableOrdinalNumber : LGOrdinalNumber {}
+@interface LGMutableOrdinalNumber : LGOrdinalNumber
 
 - (void)layerUp;
 - (void)layerDown;

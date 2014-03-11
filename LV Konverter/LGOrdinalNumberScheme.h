@@ -30,11 +30,8 @@
 
 @class LGOrdinalNumber;
 
+
 @interface LGOrdinalNumberScheme : NSObject
-{
-    // Array of NSNumbers indicating how many digits to use for each layer when generating the OZMASKE
-    NSArray *scheme;
-}
 
 - (id)initWithMaxChildCounts:(NSArray *)maxChildCounts;
 

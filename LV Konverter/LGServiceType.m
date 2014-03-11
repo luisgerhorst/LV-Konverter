@@ -36,6 +36,34 @@ NSInteger const LGInvalidServiceType = 300;
 NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
 
 
+typedef NS_ENUM(NSInteger, LGServiceType_KIND1) { // POSART1
+    LGServiceType_KIND1_N, // N - Normalposition
+    LGServiceType_KIND1_G, // G
+    LGServiceType_KIND1_A, // A
+    LGServiceType_KIND1_S // S - Stundenlohnarbeiten
+};
+
+typedef NS_ENUM(NSInteger, LGServiceType_KIND2) { // POSART2
+    LGServiceType_KIND2_N, // N - Normalposition
+    LGServiceType_KIND2_E, // E - Bedarfsposition ohne Gesamtbetrag
+    LGServiceType_KIND2_M // M - Bedarfsposition mit Gesamtbetrag
+};
+
+typedef NS_ENUM(NSInteger, LGServiceType_TYPE) { // POSTYP
+    LGServiceType_TYPE_N, // N - Normalposition
+    LGServiceType_TYPE_L // L
+};
+
+
+@interface LGServiceType ()
+
+@property (readonly) LGServiceType_KIND1 kind1; // for POSART1
+@property (readonly) LGServiceType_KIND2 kind2; // for POSART2
+@property (readonly) LGServiceType_TYPE type; // for POSTYP
+
+@end
+
+
 @implementation LGServiceType
 
 - (id)init
@@ -59,16 +87,16 @@ NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
         // For enums see LGServiceType.h
         
         BOOL kind1IsS = [unit isEqualToString:@"h"];
-        if (kind1IsS) kind1 = LGServiceType_KIND1_S; // measured in hours
-        else kind1 = LGServiceType_KIND1_N;
+        if (kind1IsS) _kind1 = LGServiceType_KIND1_S; // measured in hours
+        else _kind1 = LGServiceType_KIND1_N;
         
         // todo: maybe remove whitespaces before compare
         // if kind1 is S kind2 must be N
-        if ([kind2String isEqualToString:@"BE"]) kind2 = LGServiceType_KIND2_E;
-        else if ([kind2String isEqualToString:@"BG"]) kind2 = LGServiceType_KIND2_M;
-        else kind2 = LGServiceType_KIND2_N;
+        if ([kind2String isEqualToString:@"BE"]) _kind2 = LGServiceType_KIND2_E;
+        else if ([kind2String isEqualToString:@"BG"]) _kind2 = LGServiceType_KIND2_M;
+        else _kind2 = LGServiceType_KIND2_N;
         
-        type = LGServiceType_TYPE_N;
+        _type = LGServiceType_TYPE_N;
         
         if (![self valid]) {
             *error = [NSError errorWithDomain:LGErrorDomain code:LGInvalidServiceType userInfo:nil]; // userInfo added in LGService initWithTitle:ofQuantity:inUnit:withCSVTypeString:errors:
@@ -84,9 +112,9 @@ NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
  */
 - (BOOL)valid
 {
-    LGServiceType_KIND1 k1 = kind1;
-    LGServiceType_KIND2 k2 = kind2;
-    LGServiceType_TYPE t = type;
+    LGServiceType_KIND1 k1 = self.kind1;
+    LGServiceType_KIND2 k2 = self.kind2;
+    LGServiceType_TYPE t = self.type;
     // See valid combinations of POSART1 (kind1), POSART2 (kind2) and POSTYP (type)
     if (k1 == LGServiceType_KIND1_N && k2 == LGServiceType_KIND2_N && t == LGServiceType_TYPE_N) return YES; // NNN
     if (k1 == LGServiceType_KIND1_N && k2 == LGServiceType_KIND2_N && t == LGServiceType_TYPE_L) return YES; // NNL
@@ -110,7 +138,7 @@ NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
 - (NSString *)d83Data787980 // POSART1 + POSART2 + POSTYP string
 {
     NSString *k1S; // kind1String
-    switch (kind1) {
+    switch (self.kind1) {
         case LGServiceType_KIND1_N:
             k1S = @"N";
             break;
@@ -125,7 +153,7 @@ NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
             break;
     }
     NSString *k2S; // kind2String
-    switch (kind2) {
+    switch (self.kind2) {
         case LGServiceType_KIND2_N:
             k2S = @"N";
             break;
@@ -137,7 +165,7 @@ NSString * const LGInvalidServiceType_ServiceTitleKey = @"serviceTitle";
             break;
     }
     NSString *tS; // typeString
-    switch (type) {
+    switch (self.type) {
         case LGServiceType_TYPE_N:
             tS = @"N";
             break;
