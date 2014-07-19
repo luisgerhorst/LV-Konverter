@@ -4,7 +4,7 @@ Mithilfe dieses Programmes können Sie ganz einfach am Mac Leistungsverzeichniss
 
 # Installation
 
-Laden Sie den Ordner als ZIP herunter, entpacken Sie es und verschieben Sie die Datei `LV Konverter.app` in ihren Programmordner.
+Laden Sie unter [Releases](https://github.com/luisgerhorst/LV-Konverter/releases) die neueste Version herunter und verschieben Sie das Programm anschließend in Ihren Programmordner.
 
 # Benutzung
 
