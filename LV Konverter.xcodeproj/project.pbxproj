@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5916852718B2620C009981D8 /* LGErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5916852618B2620C009981D8 /* LGErrors.m */; };
+		5998D926197AAC5900F42A9B /* LGApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5998D925197AAC5900F42A9B /* LGApplicationDelegate.m */; };
 		59A37D4418C3761900129997 /* ErrorSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59A37D4318C3761900129997 /* ErrorSheet.xib */; };
 		59FE5E5018AA6A3D00DF81BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FE5E4F18AA6A3D00DF81BE /* Cocoa.framework */; };
 		59FE5E5A18AA6A3D00DF81BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 59FE5E5818AA6A3D00DF81BE /* InfoPlist.strings */; };
@@ -47,6 +48,8 @@
 /* Begin PBXFileReference section */
 		5916852518B2620C009981D8 /* LGErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGErrors.h; sourceTree = "<group>"; };
 		5916852618B2620C009981D8 /* LGErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGErrors.m; sourceTree = "<group>"; };
+		5998D924197AAC5900F42A9B /* LGApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGApplicationDelegate.h; sourceTree = "<group>"; };
+		5998D925197AAC5900F42A9B /* LGApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGApplicationDelegate.m; sourceTree = "<group>"; };
 		59A37D4318C3761900129997 /* ErrorSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorSheet.xib; sourceTree = "<group>"; };
 		59E492C718CF5A830032C9AB /* LGOrdinalNumberProtected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGOrdinalNumberProtected.h; sourceTree = "<group>"; };
 		59FE5E4C18AA6A3D00DF81BE /* LV Konverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LV Konverter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +197,8 @@
 			children = (
 				59FE5E6118AA6A3D00DF81BE /* LGDocument.h */,
 				59FE5E6218AA6A3D00DF81BE /* LGDocument.m */,
+				5998D924197AAC5900F42A9B /* LGApplicationDelegate.h */,
+				5998D925197AAC5900F42A9B /* LGApplicationDelegate.m */,
 				59FE5E6418AA6A3D00DF81BE /* LGDocument.xib */,
 				59A37D4318C3761900129997 /* ErrorSheet.xib */,
 				59FE5E6718AA6A3D00DF81BE /* MainMenu.xib */,
@@ -355,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5998D926197AAC5900F42A9B /* LGApplicationDelegate.m in Sources */,
 				5916852718B2620C009981D8 /* LGErrors.m in Sources */,
 				59FE5EA418AA6AC000DF81BE /* LGSet.m in Sources */,
 				59FE5EA518AA6AC000DF81BE /* LGStack.m in Sources */,
