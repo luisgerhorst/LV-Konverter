@@ -6,6 +6,8 @@ Mithilfe dieses Programmes können Sie ganz einfach am Mac Leistungsverzeichniss
 
 Laden Sie unter [Releases](https://github.com/luisgerhorst/LV-Konverter/releases) die neueste Version herunter und verschieben Sie das Programm anschließend in Ihren Programmordner.
 
+Öffnen Sie das Programm, __wenn Sie eine Meldung erhalten das LV Konverter nicht geöffnet werden kann__ da es von einem nicht verifizierten Entwickler stammt, gehen Sie im Menü auf "Apple" > "Systemeinstellungen …" > "Sicherheit" > "Allgemein". Hier können Sie LV Konverter erlauben geöffnet zu werden. Allgemeine Infos zu Gatekeeper bzw. dem öffnen von Programmen von nicht verifizierten Entwicklern finden Sie auf der Apples Webseite [OS X: Informationen zu Gatekeeper](https://support.apple.com/de-de/HT202491).
+
 # Benutzung
 
 Um die CSV-Datei zu konvertieren öffnen Sie sie einfach mit LV Konverter, anschließend werden Probleme angezeigt die bei der Formatierung der Tabelle gemacht wurden. _Warnungen_ können ignoriert werden aber vor allem _Fehler_ sollten Sie beheben bevor Sie fortfahren. Danach können Sie die in der D83-Datei enthaltenen informationen ergänzen und danach den Speicherort für die D83-Datei auswählen.
