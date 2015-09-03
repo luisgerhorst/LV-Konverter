@@ -119,6 +119,10 @@ NSString *removeSpaces(NSString *string) {
         
         LGOrdinalNumber *ordinalNumber = [[LGOrdinalNumber alloc] initWithCSVString:line[0]]; // Returns nil if is no valid ordinal number.
         
+        // Use localized float scanning.
+        float quantity;
+        BOOL quantityValidFloat = [[NSScanner localizedScannerWithString:line[2]] scanFloat:&quantity];
+        
         // Service Group:
         if (ordinalNumber &&
             !isEmpty(line[1]) && // Has a title.
@@ -162,14 +166,14 @@ NSString *removeSpaces(NSString *string) {
         // Service:
         } else if (ordinalNumber &&
                    !isEmpty(line[1]) && // Has title.
-                   [line[2] floatValue] > 0 && // Quantity > 0
+                   quantityValidFloat && quantity > 0 && // Quantity > 0
                    !isEmpty(line[3]) && [line[3] length] <= 4 && // Has unit with valid length.
                    (isEmpty(line[4]) || [@"BG" isEqualToString:removeSpaces(line[4])] || [@"BE" isEqualToString:removeSpaces(line[4])])) { // Has valid type.
             
             if ([[stack objectOnTop] class] == [LGService class]) [[stack objectOnTop] trimText]; // Finish previous service.
             
             LGService *service = [[LGService alloc] initWithTitle:line[1]
-                                                       ofQuantity:[line[2] floatValue]
+                                                       ofQuantity:quantity
                                                            inUnit:line[3]
                                                 withCSVTypeString:line[4]
                                                            errors:errors];

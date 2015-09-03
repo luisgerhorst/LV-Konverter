@@ -42,13 +42,13 @@ Menge, Einheit und Art müssen leer sein.
 
 Ordnungszahl | Text | Menge | Einheit | Art
 ---          | ---  | ---   | ---     | ---
-1.1          | Kurztext / Titel | 2.75 | m2   | BG
+1.1          | Kurztext / Titel | 2,75 | m2   | BG
              | Langtext / Beschreibung
              | weitere Zeilen des Langtextes ...
 
 * __Ordnungszahl:__ Muss belegt sein.
 * __Text__ in Zeile mit Ordnungszahl: Kurztext bzw. Titel, max 70 Stellen.
-* __Menge:__ Zahl, mit oder ohne Komma, muss größer `0` sein.
+* __Menge:__ Zahl, mit oder ohne Komma, muss größer `0` sein. Verwenden Sie das auf ihrem System eingestellte Dezimaltrennzeichen (in Deutschland `,`).
 * __Einheit:__ Max 4 Stellen, _Stundenlohnarbeiten_ die in `h` gemessen werden, werden automatisch als solche erkannt. `psch` für Pauschalleistungen (mit Menge 1).
 * __Text__ alle Zeilen bis zum Beginn der nächsten Teilleistung/LV-Gruppe: Langtext der Teilleistung, eine Zeile sollte nicht mehr als 55 Stellen habe. Optional.
 * __Art:__
