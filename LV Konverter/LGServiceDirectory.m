@@ -114,7 +114,7 @@ NSString *removeSpaces(NSString *string) {
                                                   code:LGInvalidFieldCount
                                               userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Die CSV-Datei scheint fehlerhaft zu sein, die %ld. Zeile besteht lediglich aus %lu Feldern bzw. Spalten, es müssten aber mindestens 5 sein (Ordnungszahl, Text, Menge, Einheit und Art).", currentLineIndex+1, (unsigned long)[line count]],
                                                          LGErrorPriorityKey: LGErrorPriorityFatal}]];
-            break;
+            return nil;
         }
         
         LGOrdinalNumber *ordinalNumber = [[LGOrdinalNumber alloc] initWithCSVString:line[0]]; // Returns nil if is no valid ordinal number.
