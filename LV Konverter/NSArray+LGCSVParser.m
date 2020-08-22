@@ -123,6 +123,14 @@ unichar detectDelimiter(NSString const *csvString) {
             [field replaceOccurrencesOfString:@"\"\"" withString:@"\"" options:0 range:NSMakeRange(0, [field length])]; // Replace all double double quotes by single quotes.
             [lineArray addObject:field]; // Add final field string to line array.
         }
+
+        // CSVs exported from Numbers v10.1 contain a trailing newline. Don't add it as an empty field triggering an error.
+        if ([array count] == [lines count]-1 &&
+            [lineArray count] == 1 &&
+            [[lineArray objectAtIndex:0] length] == 0) {
+            continue;
+        }
+
         [array addObject:lineArray]; // Add line array to array.
     }
     
