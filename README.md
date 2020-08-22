@@ -43,8 +43,8 @@ Menge, Einheit und Art müssen leer sein.
 Ordnungszahl | Text | Menge | Einheit | Art
 ---          | ---  | ---   | ---     | ---
 1.1          | Kurztext / Titel | 2,75 | m2   | BG
-             | Langtext / Beschreibung
-             | weitere Zeilen des Langtextes ...
+             | Langtext / Beschreibung | | |
+             | weitere Zeilen des Langtextes ... | | |
 
 * __Ordnungszahl:__ Muss belegt sein.
 * __Text__ in Zeile mit Ordnungszahl: Kurztext bzw. Titel, max 70 Stellen.
