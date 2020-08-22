@@ -22,17 +22,17 @@ Des weiteren sollten Sie Umlaute und sämmtliche andere Zeichen die nicht [ASCII
 
 Die Datei muss aus mindestens fünf Spalten bestehen.
 
-Ordnungszahl | Text | Menge | Einheit | Art
----          | ---  | ---   | ---     | ---
-...          | ...  | ...   | ...     | ...
+| Ordnungszahl | Text | Menge | Einheit | Art
+| ---          | ---  | ---   | ---     | ---
+| ...          | ...  | ...   | ...     | ...
 
 Lehrzeilen werden ignoriert.
 
 ## LV-Gruppen
 
-Ordnungszahl | Text | Menge | Einheit | Art
----          | ---  | ---   | ---     | ---
-1           | Bezeichnung / Titel der LV-Gruppe |
+| Ordnungszahl | Text | Menge | Einheit | Art
+| ---          | ---  | ---   | ---     | ---
+| 1           | Bezeichnung / Titel der LV-Gruppe |
 
 Ordnungszahl und die Spalte "Text" die den Titel der LV-Gruppe enthält müssen belegt sein.
 
@@ -40,11 +40,11 @@ Menge, Einheit und Art müssen leer sein.
 
 ## Teilleistungen
 
-Ordnungszahl | Text | Menge | Einheit | Art
----          | ---  | ---   | ---     | ---
-1.1          | Kurztext / Titel | 2,75 | m2   | BG
-             | Langtext / Beschreibung | | |
-             | weitere Zeilen des Langtextes ... | | |
+| Ordnungszahl | Text | Menge | Einheit | Art
+| ---          |---  | ---   | ---     | ---
+| 1.1          | Kurztext / Titel | 2,75 | m2   | BG
+|             | Langtext / Beschreibung | | |
+|             | weitere Zeilen des Langtextes ... | | |
 
 * __Ordnungszahl:__ Muss belegt sein.
 * __Text__ in Zeile mit Ordnungszahl: Kurztext bzw. Titel, max 70 Stellen.
